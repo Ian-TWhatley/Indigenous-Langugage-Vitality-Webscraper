@@ -23,16 +23,6 @@ def get_table(url_link):
     df=pd.DataFrame(df[0])
     return df, soup
 
-
-df, soup = get_table(url_link="https://en.wikipedia.org/wiki/Indigenous_languages_of_the_Americas")
-df = df.drop('Source',axis=1)
-
-# Rename Column for Ease
-data = df.rename(columns={'Number of speakers':'Number'})
-data = data.rename(columns={'Area(s) Language is spoken':'Areas'})
-
-# Format numbers
-data.Number = data.Number.apply(lambda x: x.split(' ', 1)[0].replace(',',''))
 def format_numbers(data):
     '''
     Removes zeroes, formats numbers, and turns them into strungs
@@ -50,10 +40,6 @@ def format_numbers(data):
 
     return data
 
-data = format_numbers(data)
-
-#  Format areas
-
 def format_areas(data):
 
     countries = ['Argentina','Bolivia','Brazil','Canada','Chile','Colombia','Costa Rica',
@@ -69,6 +55,20 @@ def format_areas(data):
         for j in range(len(data.Areas[i])):
             if data.Areas[i][j] == 'US':
                 data.Areas[i][j] = 'United States'
+
+df, soup = get_table(url_link="https://en.wikipedia.org/wiki/Indigenous_languages_of_the_Americas")
+df = df.drop('Source',axis=1)
+
+# Rename Column for Ease
+data = df.rename(columns={'Number of speakers':'Number'})
+data = data.rename(columns={'Area(s) Language is spoken':'Areas'})
+
+# Format numbers
+data.Number = data.Number.apply(lambda x: x.split(' ', 1)[0].replace(',',''))
+
+data = format_numbers(data)
+
+#  Format areas
 
 format_areas(data)
 
