@@ -41,7 +41,8 @@ def dataframe(df):
 
     return data
 
-def test_numbers_are_int(dataframe):
+def test_numbers_are_int(rawdataframe):
+    dataframe(rawdataframe)
     assert dataframe.Numbers[0] == 6500000
 
 df = EthnoDataFrame([{
@@ -63,6 +64,3 @@ df = EthnoDataFrame([{
                     'Area(s) Language is spoken': 'Mexico (Central)'
                 }
                 ])
-
-df = dataframe(df)
-print('bruh')

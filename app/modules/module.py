@@ -33,12 +33,15 @@ class EthnoDataFrame(pd.DataFrame):
         "Removes zeroes, formats numbers, and turns them into strungs"
         self.Number = self.Number.apply(lambda x: x.split(' ', 1)[0].replace(',',''))
 
+        errors = []
         for num in self.Number:
             test = any(ele not in ['1','2','3','4','5','6','7','8','9','0'] for ele in list(num))
             if test == True:
                 print(list(self.Number).index(num))
+                errors.append(list(self.Number).index(num))
         # For now, manually rename
-        self.loc[91,'Number'] = '10500'
+        for error in errors:
+            self.loc[error,'Number'] = '10500'
 
         # Remove zeros
         self = self[self.Number != '0']
