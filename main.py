@@ -36,25 +36,31 @@ def format_numbers(data):
 
     # Remove zeros
     data = data[data.Number != '0']
+    data = data[data.Number != 0]
     data.Number = data.Number.astype(int)
 
     return data
 
-def format_areas(data):
+def format_countries(data, column:str):
+
+    data[column] = data[column].fillna('None')
 
     countries = ['Argentina','Bolivia','Brazil','Canada','Chile','Colombia','Costa Rica',
                 'Ecuador','El Salvador','French Guiana','Guatemala','Honduras',
                 'Mexico','Nicaragua','Panama','Paraguay','Peru','Suriname',
-                'United States','US','Uruguay','Venezuela']
+                'United States','US','Uruguay','Venezuela', 'None']
 
-    for i in range(len(data.Areas)):
-        temp_ct = [country for country in countries if country in data.Areas[i]]
-        data.Areas[i] = temp_ct
+    for i in range(len(data[column])):
+        temp_ct = [country for country in countries if country in data[column][i]]
+        if temp_ct == []:
+            temp_ct.append('None')
+        data[column][i] = temp_ct
+                
 
-    for i in range(len(data.Areas)):
-        for j in range(len(data.Areas[i])):
-            if data.Areas[i][j] == 'US':
-                data.Areas[i][j] = 'United States'
+    for i in range(len(data[column])):
+        for j in range(len(data[column][i])):
+            if data[column][i][j] == 'US':
+                data[column][i][j] = 'United States'
 
 def run():
     df, soup = get_table(url_link="https://en.wikipedia.org/wiki/Indigenous_languages_of_the_Americas")
@@ -68,9 +74,11 @@ def run():
     data.Number = data.Number.apply(lambda x: x.split(' ', 1)[0].replace(',',''))
 
     data = format_numbers(data)
-    format_areas(data)
+    format_countries(data, 'Areas')
+    format_countries(data, 'Official Recognition')
 
     return data
 
 #  Format areas
+data = run()
 print(run())
