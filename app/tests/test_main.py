@@ -4,7 +4,46 @@ import pytest
 
 @pytest.fixture
 def rawdataframe():
-    pd.DataFrame([{
+    return pd.DataFrame([{
+                        'Language':'Guaraní',
+                        'Number of speakers':'6,500,000',
+                        'Official Recognition':'Argentina (North), Bolivia, Brazil, Paraguay',
+                        'Area(s) Language is spoken': 'Argentina (North), Bolivia (West), Brazil(South), Paraguay'
+                    },
+                    {
+                        'Language':'Southern Quechua',
+                        'Number of speakers':'5,000,000',
+                        'Official Recognition':'Argentina, Bolivia, Chile, Peru',
+                        'Area(s) Language is spoken': 'Argentina (North), Bolivia, Chile (North), Peru'
+                    },
+                    {
+                        'Language':'Nahuatl',
+                        'Number of speakers':'1,700,000',
+                        'Official Recognition':'Mexico',
+                        'Area(s) Language is spoken': 'Mexico (Central)'
+                    }
+                    ])
+
+def dataframe(df):
+
+    # Rename Column for Ease
+    data = df.rename(columns={'Number of speakers':'Number'})
+    data = data.rename(columns={'Area(s) Language is spoken':'Areas'})
+    data = EthnoDataFrame(data)
+
+    # Format numbers
+    data.format_numbers()
+    for i in range(len(data.Number)):
+        data.loc[i,'Number'] = int(data.loc[i,'Number'])
+    
+    # Format countries
+    data.format_countries(['Areas', 'Official Recognition'])
+
+    return data
+
+# def test_fixture_works(rawdataframe):
+    assert rawdataframe == pd.DataFrame(
+                    [{
                         'Language':'Guaraní',
                         'Number':'6,500,000',
                         'Official Recognition':'Argentina (North), Bolivia, Brazil, Paraguay',
@@ -22,45 +61,30 @@ def rawdataframe():
                         'Official Recognition':'Mexico',
                         'Area(s) Language is spoken': 'Mexico (Central)'
                     }
-                    ])
-
-def dataframe(df):
-
-    # Rename Column for Ease
-    data = df.rename(columns={'Number of speakers':'Number'})
-    data = data.rename(columns={'Area(s) Language is spoken':'Areas'})
-    data = EthnoDataFrame(data)
-
-    # Format numbers
-    data.format_numbers()
-    for row in data.Number:
-        row = int(row)
-    
-    # Format countries
-    data.format_countries(['Areas', 'Official Recognition'])
-
-    return data
+                    ]).all()
 
 def test_numbers_are_int(rawdataframe):
-    dataframe(rawdataframe)
-    assert dataframe.Numbers[0] == 6500000
+    data = dataframe(rawdataframe)
+    assert data.Number[0] == 6500000
 
 df = EthnoDataFrame([{
                     'Language':'Guaraní',
-                    'Number':'6,500,000',
+                    'Number of speakers':'6,500,000',
                     'Official Recognition':'Argentina (North), Bolivia, Brazil, Paraguay',
                     'Area(s) Language is spoken': 'Argentina (North), Bolivia (West), Brazil(South), Paraguay'
                 },
                 {
                     'Language':'Southern Quechua',
-                    'Number':'5,000,000',
+                    'Number of speakers':'5,000,000',
                     'Official Recognition':'Argentina, Bolivia, Chile, Peru',
                     'Area(s) Language is spoken': 'Argentina (North), Bolivia, Chile (North), Peru'
                 },
                 {
                     'Language':'Nahuatl',
-                    'Number':'1,700,000',
+                    'Number of speakers':'1,700,000',
                     'Official Recognition':'Mexico',
                     'Area(s) Language is spoken': 'Mexico (Central)'
                 }
                 ])
+dataframe(df)
+print('bruh')
