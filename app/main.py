@@ -1,5 +1,5 @@
 import pandas as pd
-from modules.module import EthnoDataFrame, get_table, get_wiki
+from modules.module import EthnoDataFrame, get_table
 
 def run():
     df, soup = get_table(url_link="https://en.wikipedia.org/wiki/Indigenous_languages_of_the_Americas")
@@ -11,16 +11,13 @@ def run():
     data = EthnoDataFrame(data)
 
     # Format numbers
-    data.format_numbers()
-    for row in data.Number:
-        row = int(row)
+    data = data.format_numbers()
     
     # Format countries
-    data.format_countries(['Areas', 'Official Recognition'])
+    data = data.format_countries(['Areas', 'Official Recognition'])
 
     return data
 
 
 if __name__ == "__main__":
     print(run())
-    

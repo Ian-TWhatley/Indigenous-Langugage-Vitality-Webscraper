@@ -43,13 +43,13 @@ class EthnoDataFrame(pd.DataFrame):
         for error in errors:
             self.loc[error,'Number'] = '10500'
 
-        # Remove zeros
-        self = self[self.Number != '0']
-        self = self[self.Number != 0]
+        # Turn into integers
+        for i in range(len(self.Number)):
+            self.loc[i,'Number'] = int(self.loc[i,'Number'])
 
-        # This is all non-functional for now
-        # for i in range(len(self.Number)):
-        #     self.loc[i,'Number'] = int(self.loc[i,'Number'])
+        # Remove zeros
+        self = self[self.Number != 0]
+        return self
 
     def format_countries(self, columns:str):
         for col in columns:
@@ -71,6 +71,7 @@ class EthnoDataFrame(pd.DataFrame):
                 for j in range(len(self[col][i])):
                     if self[col][i][j] == 'US':
                         self[col][i][j] = 'United States'
+        return self
 
 def get_wiki(x,html=False):
     'get a wikipedia page from the title of an html snippet'

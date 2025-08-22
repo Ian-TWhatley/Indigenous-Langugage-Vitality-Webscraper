@@ -34,8 +34,6 @@ def dataframe(df):
 
     # Format numbers
     data.format_numbers()
-    for i in range(len(data.Number)):
-        data.loc[i,'Number'] = int(data.loc[i,'Number'])
     
     # Format countries
     data.format_countries(['Areas', 'Official Recognition'])
