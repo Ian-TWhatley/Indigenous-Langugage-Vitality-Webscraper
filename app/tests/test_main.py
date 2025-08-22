@@ -63,25 +63,3 @@ def test_fixture_works(rawdataframe):
 def test_numbers_are_int(rawdataframe):
     data = dataframe(rawdataframe)
     assert data.Number[0] == 6500000
-
-df = EthnoDataFrame([{
-                    'Language':'Guaraní',
-                    'Number of speakers':'6,500,000',
-                    'Official Recognition':'Argentina (North), Bolivia, Brazil, Paraguay',
-                    'Area(s) Language is spoken': 'Argentina (North), Bolivia (West), Brazil(South), Paraguay'
-                },
-                {
-                    'Language':'Southern Quechua',
-                    'Number of speakers':'5,000,000',
-                    'Official Recognition':'Argentina, Bolivia, Chile, Peru',
-                    'Area(s) Language is spoken': 'Argentina (North), Bolivia, Chile (North), Peru'
-                },
-                {
-                    'Language':'Nahuatl',
-                    'Number of speakers':'1,700,000',
-                    'Official Recognition':'Mexico',
-                    'Area(s) Language is spoken': 'Mexico (Central)'
-                }
-                ])
-dataframe(df)
-print('bruh')
