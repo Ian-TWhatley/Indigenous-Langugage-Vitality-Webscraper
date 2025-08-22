@@ -1,5 +1,6 @@
 from modules.module import EthnoDataFrame
 import pandas as pd
+from pandas.testing import assert_frame_equal
 import pytest
 
 @pytest.fixture
@@ -41,27 +42,28 @@ def dataframe(df):
 
     return data
 
-# def test_fixture_works(rawdataframe):
-    assert rawdataframe == pd.DataFrame(
+def test_fixture_works(rawdataframe):
+    assert_frame_equal(rawdataframe, pd.DataFrame(
                     [{
                         'Language':'Guaraní',
-                        'Number':'6,500,000',
+                        'Number of speakers':'6,500,000',
                         'Official Recognition':'Argentina (North), Bolivia, Brazil, Paraguay',
                         'Area(s) Language is spoken': 'Argentina (North), Bolivia (West), Brazil(South), Paraguay'
                     },
                     {
                         'Language':'Southern Quechua',
-                        'Number':'5,000,000',
+                        'Number of speakers':'5,000,000',
                         'Official Recognition':'Argentina, Bolivia, Chile, Peru',
                         'Area(s) Language is spoken': 'Argentina (North), Bolivia, Chile (North), Peru'
                     },
                     {
                         'Language':'Nahuatl',
-                        'Number':'1,700,000',
+                        'Number of speakers':'1,700,000',
                         'Official Recognition':'Mexico',
                         'Area(s) Language is spoken': 'Mexico (Central)'
                     }
-                    ]).all()
+                    ])
+    )
 
 def test_numbers_are_int(rawdataframe):
     data = dataframe(rawdataframe)
