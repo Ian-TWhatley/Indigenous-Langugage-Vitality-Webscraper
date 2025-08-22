@@ -6,8 +6,9 @@ def run():
     df = df.drop('Source',axis=1)
 
     # Rename Column for Ease
-    data = df.rename(columns={'Number of speakers':'Number'})
-    data = data.rename(columns={'Area(s) Language is spoken':'Areas'})
+    data = df.rename(columns={'Number of speakers':'Number', 'Area(s) Language is spoken':'Areas'})
+
+    # Turn into Ethnographic Data
     data = EthnoDataFrame(data)
 
     # Format numbers

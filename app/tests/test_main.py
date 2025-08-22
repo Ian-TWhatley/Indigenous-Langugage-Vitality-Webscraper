@@ -27,15 +27,12 @@ def rawdataframe():
 
 def dataframe(df):
 
-    # Rename Column for Ease
-    data = df.rename(columns={'Number of speakers':'Number'})
-    data = data.rename(columns={'Area(s) Language is spoken':'Areas'})
+    # Rename columns for Ease
+    data = df.rename(columns={'Number of speakers':'Number', 'Area(s) Language is spoken':'Areas'})
     data = EthnoDataFrame(data)
 
-    # Format numbers
+    # Format data
     data.format_numbers()
-    
-    # Format countries
     data.format_countries(['Areas', 'Official Recognition'])
 
     return data
