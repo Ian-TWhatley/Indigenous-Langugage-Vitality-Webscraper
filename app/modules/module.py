@@ -81,7 +81,7 @@ def get_wiki(x,html=False):
         return wikipedia.page(x.get('title'))
     
 def get_table(url_link):
-    content = requests.get(url_link).text
+    content = wikipedia.WikipediaPage('Indigenous_languages_of_the_Americas').html()
     soup = BeautifulSoup(content,'html.parser')
     table = soup.find_all('table', 'wikitable')
 
