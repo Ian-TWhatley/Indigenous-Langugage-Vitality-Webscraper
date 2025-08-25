@@ -26,3 +26,6 @@ if __name__ == "__main__":
     data = pd.DataFrame(data)
     st.title("Native Languages of America")
     st.dataframe(data)
+
+    st.title("Raw Data")
+    st.dataframe(df)
