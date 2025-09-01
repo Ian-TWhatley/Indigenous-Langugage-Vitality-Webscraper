@@ -62,4 +62,4 @@ def test_fixture_works(rawdataframe):
 
 def test_numbers_are_int(rawdataframe):
     data = dataframe(rawdataframe)
-    assert data.Number[0] == 6500000
+    assert assert_frame_equal(data.Number, [6500000,5000000,1700000])
