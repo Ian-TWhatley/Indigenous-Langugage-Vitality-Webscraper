@@ -60,6 +60,7 @@ def test_fixture_works(rawdataframe):
                     ])
     )
 
-def test_numbers_are_int(rawdataframe):
-    data = dataframe(rawdataframe)
-    assert data.Number[0] == 6500000
+class TestEthnoData:
+    def test_numbers_are_int(self, rawdataframe):
+        data = dataframe(rawdataframe)
+        assert data.Number[0] == 6500000
